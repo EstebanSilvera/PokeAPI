@@ -9,7 +9,7 @@ const ErrorServer = ({isOpen, onClose, message}) => {
         <div>
             <div
                 id="popup-modal"
-                className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full overflow-y-auto overflow-x-hidden bg-black/50"
+                className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-[100vh] max-h-full overflow-y-auto overflow-x-hidden bg-black/50"
             >
                 <div className="relative p-4 w-full max-w-md max-h-full">
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -53,7 +53,7 @@ const ErrorServer = ({isOpen, onClose, message}) => {
                                 />
                             </svg>
                             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                {message.error.message}
+                                {message}
                             </h3>
                             <button
                                 onClick={onClose}

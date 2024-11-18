@@ -3,3 +3,8 @@
         0 0 5px rgb(59 130 246 / 0.5)
     );
 }
+
+.remove-bg {
+    filter: brightness(1.1);
+    mix-blend-mode: multiply; /* Cambia cómo se mezcla con el fondo */
+  }
