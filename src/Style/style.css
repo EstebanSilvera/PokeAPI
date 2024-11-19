@@ -62,3 +62,22 @@
   animation: flipInX 1s ease-out both;
   backface-visibility: visible;
 }
+
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.zoom-in {
+  animation: zoomIn 1s ease-in-out;
+}

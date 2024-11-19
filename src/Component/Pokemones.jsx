@@ -90,7 +90,7 @@ const Pokemones = () => {
     console.log(poke)
 
     return (
-        <div className='w-full' style={{ background: "linear-gradient( transparent -50% , #ABEBC6)" }}>
+        <div style={{ background: "linear-gradient( transparent -50% , #ABEBC6)" }}>
 
             <div className='lg:flex justify-between items-center'>
 
@@ -207,14 +207,14 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
                                         }}>
                                         <img className='remove-bg top-10 relative size-60 rounded-full right-20 text-white' src="https://icon2.cleanpng.com/20240315/ls/transparent-paint-splatter-pokemon-ball-with-pikachu-text-in-1710835851133.webp" alt="fondo pokeball" />
                                         <img
-                                            className="relative bottom-[38vh] w-full h-96 bg-center bg-cover z-10 flipInX"
+                                            className="relative bottom-96 w-full h-96 bg-center bg-cover z-10 flipInX"
                                             src={pokemones.sprites?.other?.home?.front_default}
                                             alt="avatar"
                                         />
 
                                     </div>
 
-                                    <div className="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800 z-10">
+                                    <div className="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800 z-10 zoom-in">
                                         <h3 className="py-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white">
                                             ⚪ {pokemones.name?.toUpperCase()} ⚪
                                         </h3>
