@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import InfoPokemones from './InfoPokemones';
 import ErrorServer from '../Messages/ErrorServer';
 import Skeleton from '../Share/Skeleton';
+import Pagination from '../Share/Pagination';
 import { pokemonTypeColors } from '../Share/ColorTypes';
 
 const Pokemones = () => {
@@ -10,10 +11,10 @@ const Pokemones = () => {
     const [poke, setPoke] = useState([]);
     const [skeletonPoke, setSkeletonPoke] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 20;
-    const totalItems = 1025;
+    const [itemsPerPage, setItemsPerPage] = useState(20);
+    const totalItems = 1118; //segun google
     const totalPages = Math.ceil(totalItems / itemsPerPage);
-    const maxVisiblePages = 5
+    const maxVisiblePages = 3
     const [isOpenError, setIsOpenError] = useState(false);
     const [messageError, setMessageError] = useState("");
 
@@ -48,21 +49,17 @@ const Pokemones = () => {
         };
 
         fetchPokemons();
-    }, [currentPage]);
+    }, [currentPage, itemsPerPage]);
 
+    //Funcion para el cambio de paginado
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
 
-    const getVisiblePages = () => {
-        const startPage = Math.max(currentPage - Math.floor(maxVisiblePages / 2), 1);
-        const endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
-        const pages = [];
-        for (let i = startPage; i <= endPage; i++) {
-            pages.push(i);
-        }
-        return pages;
-    };
+    const handleItemsPerPageChange = (newItemsPerPage) => {
+        setItemsPerPage(newItemsPerPage);
+        setCurrentPage(1); // Reinicia la página actual al cambiar los ítems por página
+      };
 
     //modal para mostrar la informacion del pokemon soleccionado
     const [isOpen, setIsOpen] = useState(false);
@@ -123,54 +120,26 @@ const Pokemones = () => {
 
             </div>
 
-            <div className='flex flex-wrap justify-around pb-20'>
 
-                <PokemonList
-                    pokeFilter={pokeFilter}
-                    skeletonPoke={skeletonPoke}
-                    informationPokemon={informationPokemon}
-                    isOpenError={isOpenError}
-                    setIsOpenError={setIsOpenError}
-                    messageError={messageError}
-                />
+            <PokemonList
+                pokeFilter={pokeFilter}
+                skeletonPoke={skeletonPoke}
+                informationPokemon={informationPokemon}
+                isOpenError={isOpenError}
+                setIsOpenError={setIsOpenError}
+                messageError={messageError}
+            />
 
-            </div>
 
-            {/* Paginado fixed */}
-            <div className='fixed z-50 backdrop-blur-sm bottom-0 left-0 w-full p-4'>
-                <div className="flex justify-center items-center px-14">
-                    <button
-                        onClick={() => handlePageChange(currentPage - 1)}
-                        disabled={currentPage === 1 || skeletonPoke}
-                        className={currentPage === 1 ?
-                            `flex items-center px-4 py-2 mx-1 text-gray-500 bg-white rounded-md cursor-not-allowed dark:bg-gray-800 dark:text-gray-700`
-                            :
-                            `flex items-center px-4 py-2 mx-1 text-gray-500 bg-white rounded-md dark:bg-gray-800 dark:text-white`
-                        }>
-                        Back
-                    </button>
-
-                    {getVisiblePages().map((page) => (
-                        <button
-                            key={page}
-                            onClick={() => handlePageChange(page)}
-                            disabled={page === currentPage || skeletonPoke}
-                            className={`mx-1 px-4 py-2 text-white rounded-md transition duration-300
-                            ${page === currentPage ? 'bg-blue-500 cursor-not-allowed' : 'bg-gray-500 hover:bg-gray-400 cursor-pointer'}
-                            `}
-                        >
-                            {page}
-                        </button>
-                    ))}
-
-                    <button
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        className={`flex items-center px-4 py-2 mx-1 text-gray-500 bg-white rounded-md dark:bg-gray-800 dark:text-white`}
-                    >
-                        Next
-                    </button>
-                </div>
-            </div>
+            <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                maxVisiblePages={maxVisiblePages}
+                handlePageChange={handlePageChange}
+                handleItemsPerPageChange={handleItemsPerPageChange}
+                itemsPerPage={itemsPerPage}
+                skeletonPoke={skeletonPoke}
+            />
 
             {/* Mostrar informacion de los poquemones en el componente InfoPokemones */}
             <InfoPokemones
@@ -247,7 +216,7 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
 
                                     <div className="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800 z-10">
                                         <h3 className="py-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white">
-                                        ⚪ {pokemones.name.toUpperCase()} ⚪ 
+                                            ⚪ {pokemones.name.toUpperCase()} ⚪
                                         </h3>
 
                                         <div className="text-center py-2 bg-gray-200 dark:bg-gray-700">
