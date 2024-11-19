@@ -23,14 +23,14 @@ const Pokemones = () => {
         const fetchPokemons = async () => {
             setSkeletonPoke(true);
             try {
-                // Cálculo del offset para la paginación
+                // calculo del offset para la paginación
                 const offset = (currentPage - 1) * itemsPerPage;
                 const response = await fetch(
                     `https://pokeapi.co/api/v2/pokemon?limit=${itemsPerPage}&offset=${offset}`
                 );
                 const data = await response.json();
 
-                // Obtener detalles de cada Pokémon
+                // obtener detalles de cada Pokemon
                 const pokemonDetails = await Promise.all(
                     data.results.map(async (pokemon) => {
                         const res = await fetch(pokemon.url);
@@ -42,7 +42,7 @@ const Pokemones = () => {
             } catch (error) {
                 setIsOpenError(true)
                 setMessageError(error.message)
-                // console.error("Error fetching Pokémon:", error);
+                // console.error("Error fetching Pokemon:", error);
             } finally {
                 setSkeletonPoke(false);
             }
@@ -51,7 +51,7 @@ const Pokemones = () => {
         fetchPokemons();
     }, [currentPage, itemsPerPage]);
 
-    //Funcion para el cambio de paginado
+    //funcion para el cambio de paginado
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
@@ -59,7 +59,7 @@ const Pokemones = () => {
     const handleItemsPerPageChange = (newItemsPerPage) => {
         setItemsPerPage(newItemsPerPage);
         setCurrentPage(1); // Reinicia la página actual al cambiar los ítems por página
-      };
+    };
 
     //modal para mostrar la informacion del pokemon soleccionado
     const [isOpen, setIsOpen] = useState(false);
@@ -75,16 +75,17 @@ const Pokemones = () => {
         setSelectedPokemon(null);
     };
 
-
     //buscador de pokemones con filtro
     const [search, setSearch] = useState("");
+    const [filteredPoke, setFilteredPoke] = useState([]);
 
-    let pokeFilter = []
-    if (!search) {
-        pokeFilter = poke
-    } else {
-        pokeFilter = poke.filter((response) => response.name.toLowerCase().includes(search.toLowerCase()))
-    }
+    useEffect(() => {
+        const filtered = !search
+            ? poke
+            : poke.filter((poke) => poke.name.toLowerCase().includes(search.toLowerCase()));
+
+        setFilteredPoke(filtered); // Usa un nuevo estado para almacenar el resultado.
+    }, [search, poke]);
 
     console.log(poke)
 
@@ -93,7 +94,7 @@ const Pokemones = () => {
 
             <div className='lg:flex justify-between items-center'>
 
-                <img className='w-72 h-30 lg:ml-6 mx-auto' src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png" alt="Pokemon" />
+                <img className='w-72 h-30 lg:ml-6 mx-auto' src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png" alt="pokemon" />
 
                 <div className='pt-5 w-full px-6'>
                     <label className="text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -112,7 +113,7 @@ const Pokemones = () => {
                         .fill(null)
                         .map((_, index) => (
                             <div key={index}>
-                                <img className='absolute w-8 h-8  animate-spin remove-bg' src="https://e7.pngegg.com/pngimages/906/501/png-clipart-pokeball-pokeball-thumbnail.png" alt="Pokemon" />
+                                <img className='absolute w-8 h-8  animate-spin remove-bg' src="https://e7.pngegg.com/pngimages/906/501/png-clipart-pokeball-pokeball-thumbnail.png" alt="pokeball" />
                             </div>
 
                         ))}
@@ -122,7 +123,7 @@ const Pokemones = () => {
 
 
             <PokemonList
-                pokeFilter={pokeFilter}
+                pokeFilter={filteredPoke}
                 skeletonPoke={skeletonPoke}
                 informationPokemon={informationPokemon}
                 isOpenError={isOpenError}
@@ -152,7 +153,7 @@ const Pokemones = () => {
     )
 }
 
-// Mostrar las lista de pokemones, errores, skeleton y vacio
+// mostrar las lista de pokemones, errores, skeleton y vacio
 const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError, setIsOpenError, messageError }) => {
 
     if (isOpenError) {
@@ -185,8 +186,9 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
             {
                 pokeFilter.map((pokemones, index) => {
                     // Obtener el color correspondiente al primer tipo del Pokémon
-                    const backgroundColor =
-                        pokemonTypeColors[pokemones.types[0]?.type.name.toLowerCase()] || "#A8A77A";
+                    const backgroundColor = pokemones.types && pokemones.types[0]?.type?.name
+                        ? pokemonTypeColors[pokemones.types[0].type.name.toLowerCase()]
+                        : "#A8A77A";
 
                     return (
                         <section key={index}>
@@ -196,10 +198,8 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
                             >
                                 <div className="flex flex-col items-center justify-center w-full ">
 
-                                    <div
-                                        className="relative bottom-48 w-full h-[12vh] bg-center bg-cover z-0"
-                                        alt="avatar"
-                                    ></div>
+                                    <div className="relative bottom-48 w-full h-[12vh] bg-center bg-cover z-0"></div>
+                                    
                                     <div className='rounded-3xl h-72 z-0'
                                         style={{
                                             background: `linear-gradient(to bottom, #333333, ${backgroundColor})`,
@@ -208,7 +208,7 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
                                         <img className='remove-bg top-10 relative size-60 rounded-full right-20 text-white' src="https://icon2.cleanpng.com/20240315/ls/transparent-paint-splatter-pokemon-ball-with-pikachu-text-in-1710835851133.webp" alt="fondo pokeball" />
                                         <img
                                             className="relative bottom-[38vh] w-full h-96 bg-center bg-cover z-10 flipInX"
-                                            src={pokemones.sprites.other.home.front_default}
+                                            src={pokemones.sprites?.other?.home?.front_default}
                                             alt="avatar"
                                         />
 
@@ -216,7 +216,7 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
 
                                     <div className="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800 z-10">
                                         <h3 className="py-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white">
-                                            ⚪ {pokemones.name.toUpperCase()} ⚪
+                                            ⚪ {pokemones.name?.toUpperCase()} ⚪
                                         </h3>
 
                                         <div className="text-center py-2 bg-gray-200 dark:bg-gray-700">
