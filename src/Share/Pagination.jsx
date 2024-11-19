@@ -84,7 +84,7 @@ const Pagination = ({
                     </button>
                     <form className="mx-4">
                         <label className="absolute top-[0.2vh] text-sm font-medium text-gray-900 dark:text-white bg-gray-500 px-2 rounded-lg border border-white">
-                            Select an option
+                            Pokemon in list
                         </label>
                         <select
                             id="itemsPerPage"
