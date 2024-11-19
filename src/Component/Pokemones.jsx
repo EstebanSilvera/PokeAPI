@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import InfoPokemones from './InfoPokemones';
 import ErrorServer from '../Messages/ErrorServer';
 import Skeleton from '../Share/Skeleton';
+import { pokemonTypeColors } from '../Share/ColorTypes';
 
 const Pokemones = () => {
 
@@ -211,27 +212,53 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
     ) : (
         <div className="flex flex-wrap justify-around pb-20">
             {
-                pokeFilter.map((pokemones, index) => (
-                    <section key={index}>
-                        <div onClick={() => informationPokemon(pokemones)} className="w-full max-w-sm overflow-hidden m-2">
+                pokeFilter.map((pokemones, index) => {
+                    // Obtener el color correspondiente al primer tipo del Pokémon
+                    const backgroundColor =
+                        pokemonTypeColors[pokemones.types[0]?.type.name.toLowerCase()] || "#A8A77A";
 
-                            <div className="flex flex-col items-center justify-center w-full max-w-sm mx-auto bg-transparent">
-                                <img
-                                    className="w-full h-86 bg-gray-300 bg-center bg-cover rounded-lg shadow-md"
-                                    src={pokemones.sprites.other.home.front_default}
-                                    alt="avatar"
-                                />
+                    return (
+                        <section key={index}>
+                            <div
+                                onClick={() => informationPokemon(pokemones)}
+                                className="w-full max-w-sm overflow-hidden m-2 my-2"
+                            >
+                                <div className="flex flex-col items-center justify-center w-full ">
 
-                                <div className="w-56 -mt-5 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800">
-                                    <h3 className="py-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white">
-                                        {pokemones.name.toUpperCase()}
-                                    </h3>
+                                    <div
+                                        className="relative bottom-48 w-full h-[12vh] bg-center bg-cover z-0"
+                                        alt="avatar"
+                                    ></div>
+                                    <div className='rounded-3xl h-72 z-0'
+                                        style={{
+                                            background: `linear-gradient(to bottom, #333333, ${backgroundColor})`,
+                                            boxShadow: ` 0 15px 12px -6px ${backgroundColor}`
+                                        }}>
+                                        <img className='remove-bg top-10 relative size-60 rounded-full right-20 text-white' src="https://icon2.cleanpng.com/20240315/ls/transparent-paint-splatter-pokemon-ball-with-pikachu-text-in-1710835851133.webp" alt="fondo pokeball" />
+                                        <img
+                                            className="relative bottom-[38vh] w-full h-96 bg-center bg-cover z-10"
+                                            src={pokemones.sprites.other.home.front_default}
+                                            alt="avatar"
+                                        />
 
+                                    </div>
+
+                                    <div className="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800 z-10">
+                                        <h3 className="py-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white">
+                                            {pokemones.name.toUpperCase()}
+                                        </h3>
+
+                                        <div className="text-center py-2 bg-gray-200 dark:bg-gray-700">
+                                            <span className="font-bold text-gray-800 dark:text-gray-200">
+                                                Click for more information
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                ))
+                        </section>
+                    );
+                })
             }
         </div>
     );
