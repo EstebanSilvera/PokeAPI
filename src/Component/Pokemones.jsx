@@ -95,20 +95,20 @@ const Pokemones = () => {
         <div className='w-full' style={{ background: "linear-gradient( transparent -50% , #ABEBC6)" }}>
 
             <div className='lg:flex justify-between items-center'>
+
                 <img className='w-72 h-30 lg:ml-6 mx-auto' src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png" alt="Pokemon" />
 
-                <section className='pt-5 w-full px-6'>
+                <div className='pt-5 w-full px-6'>
                     <label className="text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                     <div className="relative">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
                         </div>
                         <input onChange={(e) => setSearch(e.target.value)} type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search pokemon" required />
-                        <button type="submit" className="text-white absolute end-2.5 bottom-2.5 bg-blue-500 hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                     </div>
-                </section>
+                </div>
 
                 <div className="relative flex gap-14 justify-center items-center mr-10">
                     {Array(6)
@@ -120,6 +120,7 @@ const Pokemones = () => {
 
                         ))}
                 </div>
+
             </div>
 
             <div className='flex flex-wrap justify-around pb-20'>
@@ -142,9 +143,9 @@ const Pokemones = () => {
                         onClick={() => handlePageChange(currentPage - 1)}
                         disabled={currentPage === 1 || skeletonPoke}
                         className={currentPage === 1 ?
-                            `flex items-center px-4 py-2 mx-1 text-gray-500 bg-white rounded-md cursor-not-allowed dark:bg-gray-800 dark:text-white`
+                            `flex items-center px-4 py-2 mx-1 text-gray-500 bg-white rounded-md cursor-not-allowed dark:bg-gray-800 dark:text-gray-700`
                             :
-                            `flex items-center px-4 py-2 mx-1 text-gray-500 bg-white rounded-md dark:bg-gray-800 dark:text-gray-600`
+                            `flex items-center px-4 py-2 mx-1 text-gray-500 bg-white rounded-md dark:bg-gray-800 dark:text-white`
                         }>
                         Back
                     </button>
@@ -182,6 +183,7 @@ const Pokemones = () => {
     )
 }
 
+// Mostrar las lista de pokemones, errores, skeleton y vacio
 const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError, setIsOpenError, messageError }) => {
 
     if (isOpenError) {
@@ -196,7 +198,7 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
 
     if (pokeFilter.length === 0) {
         return (
-            <div className="flex justify-center items-center h-[80vh]">
+            <div className="flex justify-center items-center h-[92.2vh]">
                 <h2 className="text-5xl font-extrabold text-center lg:text-7xl 2xl:text-8xl">
                     <span className="text-transparent bg-gradient-to-br bg-clip-text from-teal-500 via-indigo-500 to-sky-500 dark:from-teal-200 dark:via-indigo-300 dark:to-sky-500">
                         No Pokémon available!
@@ -221,7 +223,7 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
                         <section key={index}>
                             <div
                                 onClick={() => informationPokemon(pokemones)}
-                                className="w-full max-w-sm overflow-hidden m-2 my-2"
+                                className="w-full max-w-sm overflow-hidden m-2 my-2 transition-transform transform hover:scale-105"
                             >
                                 <div className="flex flex-col items-center justify-center w-full ">
 
@@ -236,7 +238,7 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
                                         }}>
                                         <img className='remove-bg top-10 relative size-60 rounded-full right-20 text-white' src="https://icon2.cleanpng.com/20240315/ls/transparent-paint-splatter-pokemon-ball-with-pikachu-text-in-1710835851133.webp" alt="fondo pokeball" />
                                         <img
-                                            className="relative bottom-[38vh] w-full h-96 bg-center bg-cover z-10"
+                                            className="relative bottom-[38vh] w-full h-96 bg-center bg-cover z-10 flipInX"
                                             src={pokemones.sprites.other.home.front_default}
                                             alt="avatar"
                                         />
@@ -245,7 +247,7 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
 
                                     <div className="w-56 -mt-10 overflow-hidden bg-white rounded-lg shadow-lg md:w-64 dark:bg-gray-800 z-10">
                                         <h3 className="py-2 font-bold tracking-wide text-center text-gray-800 uppercase dark:text-white">
-                                            {pokemones.name.toUpperCase()}
+                                        ⚪ {pokemones.name.toUpperCase()} ⚪ 
                                         </h3>
 
                                         <div className="text-center py-2 bg-gray-200 dark:bg-gray-700">

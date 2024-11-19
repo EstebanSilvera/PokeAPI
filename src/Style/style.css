@@ -1,4 +1,64 @@
 .remove-bg {
-    filter: brightness(1.1);
-    mix-blend-mode: multiply; /* Cambia cómo se mezcla con el fondo */
+  filter: brightness(1.1);
+  mix-blend-mode: multiply;
+  /* Cambia cómo se mezcla con el fondo */
+}
+
+/* Animación BounceIn */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
   }
+
+  20% {
+    transform: scale(1.1);
+  }
+
+  40% {
+    transform: scale(0.9);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+
+  80% {
+    transform: scale(0.97);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Clases para usar la animación */
+.bounceIn {
+  animation: bounceIn 1s ease-in-out both;
+}
+
+@keyframes flipInX {
+  0% {
+    transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+  }
+  40% {
+    transform: perspective(400px) rotateX(-10deg);
+    opacity: 0.7;
+  }
+  70% {
+    transform: perspective(400px) rotateX(10deg);
+  }
+  100% {
+    transform: perspective(400px) rotateX(0);
+    opacity: 1;
+  }
+}
+
+/* Clase para aplicar la animación */
+.flipInX {
+  animation: flipInX 1s ease-out both;
+  backface-visibility: visible;
+}

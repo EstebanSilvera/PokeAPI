@@ -38,7 +38,7 @@ const ErrorServer = ({isOpen, onClose, message}) => {
                         </button>
                         <div className="p-4 md:p-5 text-center">
                             <svg
-                                className="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+                                className="mx-auto mb-4 text-gray-400 size-28 dark:text-gray-200"
                                 aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -52,7 +52,7 @@ const ErrorServer = ({isOpen, onClose, message}) => {
                                     d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                                 />
                             </svg>
-                            <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            <h3 className="mb-5 text-xl font-normal text-gray-500 dark:text-gray-400">
                                 {message}
                             </h3>
                             <button

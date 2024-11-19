@@ -26,15 +26,15 @@ const InfoPokemones = ({ isOpen, onClose, pokemon }) => {
 
                     <hr className="mt-6" />
 
-                    <div
-                        className="w-full  px-8 py-4 mt-16 bg-white rounded-lg shadow-2xl dark:bg-gray-800"
+                    <div className="w-full  px-8 py-4 mt-16 bg-white rounded-2xl shadow-2xl dark:bg-gray-800"
                         style={{
                             boxShadow: ` 0 25px 50px -12px ${backgroundColor}`
                         }}>
+
                         <div className="flex justify-center -mt-16 md:justify-end">
                             <img style={{
                                 filter: `drop-shadow(0 0 5px ${backgroundColor})`
-                            }} className="object-cover h-20 imgBack" alt="Testimonial avatar" src={pokemon?.sprites.other.showdown.front_default} />
+                            }} className="object-cover h-20 lg:mr-10 imgBack bounceIn" alt="Testimonial avatar" src={pokemon?.sprites.other.showdown.front_default} />
                         </div>
 
                         <h2 className="mt-2 text-xl font-semibold text-gray-800 dark:text-white md:mt-0">{pokemon?.name.toUpperCase()}</h2>
