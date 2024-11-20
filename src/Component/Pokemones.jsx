@@ -90,7 +90,7 @@ const Pokemones = () => {
     console.log(poke)
 
     return (
-        <div style={{ background: "linear-gradient( transparent -50% , #ABEBC6)" }}>
+        <div style={{ background: "linear-gradient( transparent -50% , #ABEBC6)", minHeight: "100vh", }}>
 
             <div className='lg:flex justify-between items-center'>
 
@@ -194,11 +194,11 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
                         <section key={index}>
                             <div
                                 onClick={() => informationPokemon(pokemones)}
-                                className="w-full max-w-sm overflow-hidden m-2 my-2 transition-transform transform hover:scale-105"
+                                className="w-full max-w-sm overflow-hidden m-2 transition-transform transform hover:scale-105"
                             >
                                 <div className="flex flex-col items-center justify-center w-full ">
 
-                                    <div className="relative bottom-48 w-full h-[12vh] bg-center bg-cover z-0"></div>
+                                    <div className="relative bottom-48 w-full h-[15vh] bg-center bg-cover z-0"></div>
                                     
                                     <div className='rounded-3xl h-72 z-0'
                                         style={{
@@ -207,7 +207,7 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
                                         }}>
                                         <img className='remove-bg top-10 relative size-60 rounded-full right-20 text-white' src="https://icon2.cleanpng.com/20240315/ls/transparent-paint-splatter-pokemon-ball-with-pikachu-text-in-1710835851133.webp" alt="fondo pokeball" />
                                         <img
-                                            className="relative bottom-96 w-full h-96 bg-center bg-cover z-10 flipInX"
+                                            className="relative bottom-96 w-full h-96 bg-center bg-cover z-10 flipInX fondoShadow"
                                             src={pokemones.sprites?.other?.home?.front_default}
                                             alt="avatar"
                                         />
