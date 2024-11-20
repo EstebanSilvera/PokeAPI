@@ -168,7 +168,7 @@ const PokemonList = ({ pokeFilter, skeletonPoke, informationPokemon, isOpenError
 
     if (pokeFilter.length === 0) {
         return (
-            <div className="flex justify-center items-center h-[92.2vh]">
+            <div className="flex justify-center items-center h-[70vh]">
                 <h2 className="text-5xl font-extrabold text-center lg:text-7xl 2xl:text-8xl">
                     <span className="text-transparent bg-gradient-to-br bg-clip-text from-teal-500 via-indigo-500 to-sky-500 dark:from-teal-200 dark:via-indigo-300 dark:to-sky-500">
                         No Pokémon available!
