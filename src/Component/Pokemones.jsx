@@ -58,7 +58,7 @@ const Pokemones = () => {
 
     const handleItemsPerPageChange = (newItemsPerPage) => {
         setItemsPerPage(newItemsPerPage);
-        setCurrentPage(1); // Reinicia la página actual al cambiar los ítems por página
+        setCurrentPage(1); // reinicia el pagination
     };
 
     //modal para mostrar la informacion del pokemon soleccionado
@@ -84,7 +84,7 @@ const Pokemones = () => {
             ? poke
             : poke.filter((poke) => poke.name.toLowerCase().includes(search.toLowerCase()));
 
-        setFilteredPoke(filtered); // Usa un nuevo estado para almacenar el resultado.
+        setFilteredPoke(filtered); 
     }, [search, poke]);
 
     console.log(poke)
@@ -94,7 +94,7 @@ const Pokemones = () => {
 
             <div className='lg:flex justify-between items-center'>
 
-                <img className='w-72 h-30 lg:ml-6 mx-auto' src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png" alt="pokemon" />
+                <img className='w-72 h-30 lg:ml-6 mx-auto pt-4' src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png" alt="pokemon" />
 
                 <div className='pt-5 w-full px-6'>
                     <label className="text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
